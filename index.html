@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Temperature Hot</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" crossorigin="anonymous">
+        <style>
+            body {
+                background: url(images/bg-image.jpg) no-repeat;
+                background-size: cover;
+                height: 100vh;
+                font-family: 'montserrat', sans-serif;
+            }
+            .temp {
+                font-size: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <form class="col-md-6 m-auto py-5">
+                <div class="input-group mb-3">
+                    <input id="temperature" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                    <div class="input-group-append">
+                        <button id="temperature-btn" type="button" class="btn btn-danger">Search</button>
+                    </div>
+                </div>
+            </form>
+            <div class="location weather-status text-white text-center">
+                <!--<img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">-->
+                <h1 class="city">Dhaka</h1>
+                <h3 class="temp"><span>38.06</span>&deg;C</h3>
+                <h1 class="lead">Clouds</h1>
+            </div>
+        </div>
+
+        <script>
+            // api.openweathermap.org/data/2.5/weather?q={city name}&appid={d38769a7e199e94fe40e3fa6a6e102c1}
+            // Key: d38769a7e199e94fe40e3fa6a6e102c1
+            const cityName = document.getElementById('temperature-btn');
+            cityName.addEventListener('click', function(){
+                const cityValue = document.getElementById('temperature').value;
+                console.log(cityValue);
+            });
+
+            const api = {
+                key: 'd38769a7e199e94fe40e3fa6a6e102c1',
+                url: 'api.openweathermap.org/data/2.5/',
+            };
+            
+            function hotTemperature(city) {
+                fetch(`${api.url}weather?q=${city}&APPID=${api.key}`)
+                    .then(temp => temp.json())
+                    .then(displayResults);
+            }
+            function displayResults(temp) {
+                let city = document.querySelector('.location .city');
+                console.log(city);
+                city.innerText = `${temp.name}, ${temp.sys.country}`;
+            }
+        </script>
+
+    </body>
+
+</html>
